@@ -1,0 +1,6 @@
+* Python 2.6+ (on debian systems: (sudo) apt get install python python-pip) 
+* Python numpy ((sudo or venv) pip install numpy)
+* Python pandas ((sudo or venv) pip install pandas)
+* Python fisher ((sudo or venv) pip install fisher)
+
+On servers use of venv is recomended.
