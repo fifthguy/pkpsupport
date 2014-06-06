@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import time
 
 import argparse
 import pandas as pd
@@ -29,6 +30,7 @@ input_path, output_path, control_path = args.ip, args.op, args.cp
 while True:
 	if scripts.check_upload(input_path) == 1:
 		break
+	time.sleep(0.5)
 
 inputs = os.listdir(input_path)
 outputs = [output_path + input1.split('.')[0] + '_fisher.xls' for input1 in inputs]
@@ -59,6 +61,7 @@ scripts.write_control(control_path, 'stop')
 while True:
 	if scripts.check_download(control_path) == 1:
 		break
+	time.sleep(0.5)
 
 scripts.remove_data(input_path, output_path, control_path)
 
