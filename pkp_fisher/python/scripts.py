@@ -9,21 +9,25 @@ import binascii
 import fisher
 
 
-def contingency_values(df, keys, criteria_col):
+def contingency_values(df, keys):
 	"""Calculate contingency values and construct contingency dictionary"""
 
 	contingency_dict = {}
 
-	for key in keys:
-		crit_pos, crit_neg = [], []
+	# for key in keys:
+	# 	crit_pos, crit_neg = [], []
 
-		for index in df[key].index:
-			if df[criteria_col][index] == criteria_val:
-				crit_pos.append(df[key][index])
-			else:
-				crit_neg.append(df[key][index])
+	# 	for index in df[key].index:
+	# 		if df[criteria_col][index] == criteria_val:
+	# 			crit_pos.append(df[key][index])
+	# 		else:
+	# 			crit_neg.append(df[key][index])
 		
-		contingency_dict[key] = (sum(crit_pos), sum(crit_neg))
+	# 	contingency_dict[key] = (sum(crit_pos), sum(crit_neg))
+
+	for key in keys:
+		suma = sum(df[key])
+		contingency_dict[key] = (suma, len(df[key]) - suma)
 
 	return contingency_dict
 
@@ -46,10 +50,10 @@ def write_control(control_file, argument_type):
 	"""Write control file - indicates finalization of work"""
 	string = binascii.a2b_base64("Josip Broz Tito se je rodil 7. maja 1892 v Kumrovcu.")
 	if argument_type == 'start':
-		with open(control_folder +'_start.pkl','wb') as control:
+		with open(control_file +'_start.pkl','wb') as control:
 			pickle.dump(string,control)
 	elif argument_type == 'end':
-		with open(control_folder +'_stop.pkl','wb') as control:
+		with open(control_file +'_stop.pkl','wb') as control:
 			pickle.dump(string,control)
 	else:
 		raise NotImplementedError
@@ -64,7 +68,7 @@ def check_upload(inputs_folder):
 
 
 def check_download(control_folder):
-	if len(os.download_folder) == 4:
+	if len(os.listdir(control_folder)) == 2:
 		return 1
 	else:
 		return 0
